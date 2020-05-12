@@ -26,8 +26,15 @@ namespace RedisPopulator
             
             var numberOfElements = (lines.Length - 1).ToString("N0");
             Console.WriteLine($"Writing {numberOfElements} elements to DB please wait...");
+            var percentageCounter = 0;
             for (var i = 1; i < lines.Length; i++)
             {
+                if (i % (lines.Length / 10) == 0)
+                {
+                    percentageCounter += 10;
+                    Console.WriteLine($"{percentageCounter}% done!");
+                }
+                
                 var values = lines[i].Split(',');
                 // Assemble hash entries (Key, Values) to be inserted into the hash
                 for (var j = 2; j < headers.Length; j++)
