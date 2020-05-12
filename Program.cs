@@ -10,7 +10,7 @@ namespace RedisPopulator
         {
             // Read File
             // TODO: Change this to match the path of your data.csv file
-            const string pathToData = @"D:\Github\Software Development\Database\Comparisons\data.csv";
+            const string pathToData = @"C:\Users\emilv\OneDrive\Softwareudvikling\1. Semester\Database\Mini project 2\data.csv";
             var lines = File.ReadAllLines(pathToData);
             
             var muxer = ConnectionMultiplexer.Connect("localhost");
@@ -26,7 +26,7 @@ namespace RedisPopulator
             
             var numberOfElements = (lines.Length - 1).ToString("N0");
             Console.WriteLine($"Writing {numberOfElements} elements to DB please wait...");
-            for (var i = 2; i < lines.Length; i++)
+            for (var i = 1; i < lines.Length; i++)
             {
                 var values = lines[i].Split(',');
                 // Assemble hash entries (Key, Values) to be inserted into the hash
