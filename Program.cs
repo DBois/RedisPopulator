@@ -22,20 +22,20 @@ namespace RedisPopulator
             var headers = lines[0].Split(',');
 
             // Array which will contain the key value entries.
-            var entries = new HashEntry[headers.Length - 1];
+            var entries = new HashEntry[headers.Length - 2];
             
             var numberOfElements = (lines.Length - 1).ToString("N0");
             Console.WriteLine($"Writing {numberOfElements} elements to DB please wait...");
-            for (var i = 1; i < lines.Length; i++)
+            for (var i = 2; i < lines.Length; i++)
             {
                 var values = lines[i].Split(',');
                 // Assemble hash entries (Key, Values) to be inserted into the hash
-                for (var j = 1; j < headers.Length; j++)
+                for (var j = 2; j < headers.Length; j++)
                 {
-                    entries[j - 1] = new HashEntry(headers[j], values[j]);
+                    entries[j - 2] = new HashEntry(headers[j], values[j]);
                 }
                 // Query the entries to the DB
-                conn.HashSet($"{headers[0]}:{values[0]}", entries);
+                conn.HashSet($"{headers[0]}:{values[0]}.{values[1]}", entries);
             }
 
             Console.WriteLine("Finished!");
